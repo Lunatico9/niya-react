@@ -73,30 +73,6 @@ class Info extends React.Component {
     }
 }
 
-// class Info extends React.Component {
-//     render() {
-//         let victory = this.props.victory;
-//         let player = this.props.nextPlayer === "R" ? "Red" : "Black";
-//         let previousPlayer = this.props.vp === "R" ? "Red" : "Black";
-//         let nextPlayer = "Next player: " + player;
-//         let tile = this.props.lastTile === null ? "First Turn!" : this.props.lastTile.plant + " and " + this.props.lastTile.symbol
-//         let lastTile = "Last tile was: " + tile;
-//         return (
-//             <div className="next">
-//                 {victory &&
-//                         <div className="victory">
-//                             The {previousPlayer} player won!
-//                         </div>
-//                 }
-//                 {!victory && <div>{nextPlayer}</div>}
-//                 <div>{lastTile}</div>
-//                 <button className="new-game" onClick={this.props.onClick}>New Game</button>
-//                 <ol>{this.props.moves}</ol>
-//             </div>
-//         )
-//     }
-// }
-
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -256,25 +232,6 @@ render() {
     const availableMoves = this.findAvailableMoves(this.state.tiles, lastTile)
     const previousPlayerVictory = this.checkVictory(previousPlayer, current.colors, availableMoves);
 
-    //TODO make a forward/back button thing
-    
-    // const moves = history.map((step, move) => {
-    //     const description = "Go to move #" + move;
-    //     if (move === this.state.stepNumber) {
-    //         return (
-    //             <li key={move}>
-    //                 <button onClick={() => this.jumpTo(move)}><strong>{description}</strong></button>
-    //             </li>
-    //         );
-    //     } else {
-    //         return (
-    //             <li key={move}>
-    //                 <button onClick={() => this.jumpTo(move)}>{description}</button>
-    //             </li>
-    //         );
-    //     }
-    // });
-
     const buttons = [
         <button className={this.state.stepNumber > 0  ? "back" : "back disable"} key={0} onClick={() => this.back(this.state.stepNumber)}>Back</button>,
         <button className="new-game" key={1} onClick={this.newGame}>New Game</button>,
@@ -289,7 +246,7 @@ render() {
             <div className="game-board">
                 <Board colors={current.colors} tiles={this.state.tiles} lastClick={lastTileIndex} availableTiles={availableMoves} onClick={(i) => this.handleClick(i)} />
             </div>
-            <Info nextPlayer={nextPlayer} lastTile={lastTile} /*moves={moves}*/ onClick={this.newGame} buttons={buttons} victory={previousPlayerVictory} vp={previousPlayer} />
+            <Info nextPlayer={nextPlayer} lastTile={lastTile} onClick={this.newGame} buttons={buttons} victory={previousPlayerVictory} vp={previousPlayer} />
         </div>
     );
 }
