@@ -1,26 +1,329 @@
 import React from 'react';
-import logo from './logo.svg';
+import logo, { ReactComponent } from './logo.svg';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+function Tile(props) {
+    if (props.color) {
+        return (
+            <button className={(props.color === 'R' ? 'tile red' : 'tile black') + " " + (props.animate ? 'animated' : '')}>
+                {props.color === "R" ? "Red" : "Black"}
+            </button>
+        )
+    } else {
+        return (
+            <button className={props.available ? "tile available" : "tile"} onClick={props.onClick}>
+                {props.tile.plant}
+                    <br />
+                {props.tile.symbol}
+            </button>
+        )
+    }
 }
+
+class Board extends React.Component {
+    renderTile(i) {
+        return (
+            <Tile tile={this.props.tiles[i]} animate={this.props.lastClick === i ? true : false} available={this.props.availableTiles[i]} color={this.props.colors[i]} onClick={() => this.props.onClick(i)} />
+        );
+    }
+    render() {
+        let tiles = [];
+        for (let row = 0; row < 4; row++){
+            let tileRow = [];
+            for (let col = 0; col < 4; col++){
+                tileRow.push(<span key={row*4 + col}>{this.renderTile(row*4 + col)}</span>);
+            }
+            tiles.push(<div className="board-row" key={row}>{tileRow}</div>);
+        }
+        return (
+            <div>
+                {tiles}
+            </div>
+        );
+    }
+}
+
+class Info extends React.Component {
+    render() {
+        const victory = this.props.victory;
+        const player = this.props.nextPlayer === "R" ? "Red" : "Black";
+        const previousPlayer = this.props.vp === "R" ? "Red" : "Black";
+        const nextPlayer = "Next player: " + player;
+        const lastTile = this.props.lastTile === null ? "First Turn!" : "Last tile was: " + this.props.lastTile.plant + " and " + this.props.lastTile.symbol
+        return (
+            <div className="game-info">
+                <div className="next">
+                    {victory &&
+                        <div className="victory">
+                            The {previousPlayer} player won!
+                        </div>
+                    }
+                    {!victory && <div className="next-player">{nextPlayer}</div>}
+                    <div className="next-tile">
+                        {lastTile}
+                    </div>
+                </div> 
+                <div className="history-buttons">
+                    {this.props.buttons}
+                </div>
+            </div>
+            
+        )
+    }
+}
+
+// class Info extends React.Component {
+//     render() {
+//         let victory = this.props.victory;
+//         let player = this.props.nextPlayer === "R" ? "Red" : "Black";
+//         let previousPlayer = this.props.vp === "R" ? "Red" : "Black";
+//         let nextPlayer = "Next player: " + player;
+//         let tile = this.props.lastTile === null ? "First Turn!" : this.props.lastTile.plant + " and " + this.props.lastTile.symbol
+//         let lastTile = "Last tile was: " + tile;
+//         return (
+//             <div className="next">
+//                 {victory &&
+//                         <div className="victory">
+//                             The {previousPlayer} player won!
+//                         </div>
+//                 }
+//                 {!victory && <div>{nextPlayer}</div>}
+//                 <div>{lastTile}</div>
+//                 <button className="new-game" onClick={this.props.onClick}>New Game</button>
+//                 <ol>{this.props.moves}</ol>
+//             </div>
+//         )
+//     }
+// }
+
+class App extends React.Component {
+    constructor(props) {
+        super(props);
+        this.newGame = this.newGame.bind(this);
+        this.jumpTo = this.jumpTo.bind(this);
+        this.forward = this.forward.bind(this);
+        this.back = this.back.bind(this);
+        const tiles = shuffle(this.props.tiles.slice());
+        this.state = {
+            tiles: tiles,
+            history: [
+                {
+                    colors: Array(tiles.length).fill(null),
+                    lastTile: null
+                }
+            ],
+            stepNumber: 0,
+            rIsNext: true,
+        };
+    }
+
+    newGame() {
+        const tiles = shuffle(this.props.tiles.slice());
+        this.setState({
+            tiles: tiles,
+            history: [
+                {
+                    colors: Array(tiles.length).fill(null),
+                    lastTile: null
+                }
+            ],
+            stepNumber: 0,
+            rIsNext: true,
+        })
+    }
+
+    jumpTo(step) {
+        this.setState({
+            stepNumber: step,
+            rIsNext: (step % 2) === 0
+        });
+    }
+
+    forward(step) {
+        if (step < this.state.history.length - 1) {
+            this.jumpTo(step + 1);
+        }
+    }
+
+    back(step) {
+        if (step > 0) {
+            this.jumpTo(step - 1);
+        }
+    }
+
+
+    findAvailableMoves(tiles, lastTile) {
+        if (lastTile) {
+            const symbol = lastTile.symbol;
+            const plant = lastTile.plant;
+            return tiles.map((tile, index) => {
+                if (symbol === tile.symbol || plant === tile.plant) {
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+        } else {
+            return ALLOWED_FIRST_MOVE_TILES;
+        }
+    }
+
+    handleClick(i) {
+        const history = this.state.history.slice(0, this.state.stepNumber + 1);
+        const current = history[history.length - 1];
+        const tiles = this.state.tiles;
+        const lastTile = current.lastTile;
+        const availableMoves = this.findAvailableMoves(tiles, lastTile);
+        if (availableMoves[i] === false) {
+            return;
+        }
+        if (this.checkVictory(this.state.rIsNext ? "B" : "R", current.colors, availableMoves)) {
+            return;
+        }
+        const colors = current.colors.slice();
+        colors[i] = this.state.rIsNext ? "R" : "B";
+        this.setState({
+            history: history.concat([
+                {
+                    colors: colors,
+                    lastTile: tiles[i]
+                }
+            ]),
+            stepNumber: history.length,
+            rIsNext: !this.state.rIsNext,
+        });
+    }
+
+    checkVictory(player, colors, allowedMoves) {
+        const checkCanMove = function(allowedMoves, colors) {
+            for (let i = 0; i < allowedMoves.length; i++){
+                if (colors[i] || !allowedMoves[i]) {
+                    continue;
+                } else {
+                    return true;
+                }
+            }
+            return false;
+        }
+        if (checkCanMove(allowedMoves, colors)){
+            const lines = function () {
+                let lineArray = [];
+                for (let i = 0; i < 4; i++) {
+                    lineArray.push([i * 4, i * 4 + 1, i * 4 + 2, i * 4 + 3]);
+                }
+                return lineArray;
+            }
+            const columns = function () {
+                let colArray = [];
+                for (let i = 0; i < 4; i++) {
+                    colArray.push([i, i + 4, i + 8, i + 12]);
+                }
+                return colArray;
+            }
+            const squares = function () {
+                let squaresArray = [];
+                for (let i = 0; i < 12; i++) {
+                    if (i % 4 === 3) {
+                        continue;
+                    }
+                    squaresArray.push([i, i + 1, i + 4, i + 5]);
+                }
+                return squaresArray;
+            }
+            const diags = [[0, 5, 10, 15], [3, 6, 9, 12]];
+            const victoryConditions = lines().concat(columns().concat(squares().concat(diags)));
+
+            for (const condition of victoryConditions) {;
+                const [a, b, c, d] = condition;
+                if (colors[a] && colors[a] === player && colors[b] === player && colors[c] === player && colors[d] === player) {
+                    return true;
+                }
+            }
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+render() {
+    const history = this.state.history;
+    const current = history[this.state.stepNumber];
+    const nextPlayer = this.state.rIsNext ? "R" : "B";
+    const previousPlayer = this.state.rIsNext ? "B" : "R";
+    const lastTile = current.lastTile;
+    const lastTileIndex = this.state.tiles.indexOf(lastTile);
+    const availableMoves = this.findAvailableMoves(this.state.tiles, lastTile)
+    const previousPlayerVictory = this.checkVictory(previousPlayer, current.colors, availableMoves);
+
+    //TODO make a forward/back button thing
+    
+    // const moves = history.map((step, move) => {
+    //     const description = "Go to move #" + move;
+    //     if (move === this.state.stepNumber) {
+    //         return (
+    //             <li key={move}>
+    //                 <button onClick={() => this.jumpTo(move)}><strong>{description}</strong></button>
+    //             </li>
+    //         );
+    //     } else {
+    //         return (
+    //             <li key={move}>
+    //                 <button onClick={() => this.jumpTo(move)}>{description}</button>
+    //             </li>
+    //         );
+    //     }
+    // });
+
+    const buttons = [
+        <button className={this.state.stepNumber > 0  ? "back" : "back disable"} key={0} onClick={() => this.back(this.state.stepNumber)}>Back</button>,
+        <button className="new-game" key={1} onClick={this.newGame}>New Game</button>,
+        <button className={this.state.stepNumber < this.state.history.length - 1  ? "forward" : "forward disable"} key={2} onClick={() => this.forward(this.state.stepNumber)}>Forward</button>
+    ];
+
+    return (
+        <div className="game">
+            <div className="title">
+                <h1>Niya React</h1>
+            </div>
+            <div className="game-board">
+                <Board colors={current.colors} tiles={this.state.tiles} lastClick={lastTileIndex} availableTiles={availableMoves} onClick={(i) => this.handleClick(i)} />
+            </div>
+            <Info nextPlayer={nextPlayer} lastTile={lastTile} /*moves={moves}*/ onClick={this.newGame} buttons={buttons} victory={previousPlayerVictory} vp={previousPlayer} />
+        </div>
+    );
+}
+}
+
+const ALLOWED_FIRST_MOVE_TILES = [true, true, true, true,
+    true, false, false, true,
+    true, false, false, true,
+    true, true, true, true]
+/**
+ * Randomly shuffle an array
+ * https://stackoverflow.com/a/2450976/1293256
+ * @param  {Array} array The array to shuffle
+ * @return {String}      The first item in the shuffled array
+ */
+var shuffle = function (array) {
+
+    var currentIndex = array.length;
+    var temporaryValue, randomIndex;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+
+};
 
 export default App;

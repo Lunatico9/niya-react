@@ -36,3 +36,122 @@
     transform: rotate(360deg);
   }
 }
+
+.tile {
+  background: #fff;
+  border: 1px solid #999;
+  float: left;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 34px;
+  height: 100px;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  width: 100px;
+}
+
+.animated.red {
+    animation: green-red 0.5s;
+}
+
+.animated.black {
+    animation: green-black 0.5s;
+}
+
+@keyframes green-red {
+    from {
+        background: rgba(3, 252, 19, 0.3);
+    }
+    to {
+        background: rgba(252, 3, 3, 0.6);
+    }
+}
+
+@keyframes green-black {
+    from {
+        background: rgba(3, 252, 19, 0.3);
+    }
+
+    to {
+        background: rgba(102, 102, 102, 0.6);
+    }
+}
+
+@keyframes white-green {
+    from {
+        background: white;
+    }
+
+    to {
+        background: rgba(3, 252, 19, 0.3);
+    }
+}
+
+.board-row:after {
+  clear: both;
+  content: "";
+  display: table;
+}
+
+.game {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 40%;
+    height: 90vh;
+}
+
+body {
+  font: 14px "Century Gothic", Futura, sans-serif;
+}
+
+.tile:focus {
+  outline: none;
+}
+
+.red {
+    background: rgba(252, 3, 3, 0.6);
+    font-size: 30px;
+}
+
+.black {
+    background: rgba(102, 102, 102, 0.6);
+    font-size: 30px;
+}
+
+.available {
+    background: rgba(3, 252, 19, 0.3);
+    animation: white-green 0.5s;
+}
+
+.game-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 10%;
+  width: 60%;
+}
+
+.next {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.history-buttons {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+  height: 10%;
+}
+
+.disable {
+  color: grey;
+}
