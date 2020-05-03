@@ -63,7 +63,6 @@
 .content {
   display: flex;
   flex-direction: row;
-  align-items: center;
   justify-content: space-around;
 }
 
@@ -134,5 +133,13 @@ body {
   }
   .right-col {
     display: none;
+  }
+}
+
+@media (max-width: 400px) {
+  .tile {
+    width: 25vw;
+    height: 25vw;
+    font-size: 1em;
   }
 }
