@@ -239,14 +239,18 @@ render() {
     ];
 
     return (
-        <div className="game">
-            <div className="title">
-                <h1>Niya React</h1>
+        <div className="content">
+            <div className="left-col"></div>
+            <div className="game">
+                <div className="title">
+                    <h1>Niya React</h1>
+                </div>
+                <div className="game-board">
+                    <Board colors={current.colors} tiles={this.state.tiles} lastClick={lastTileIndex} availableTiles={availableMoves} onClick={(i) => this.handleClick(i)} />
+                </div>
+                <Info nextPlayer={nextPlayer} lastTile={lastTile} onClick={this.newGame} buttons={buttons} victory={previousPlayerVictory} vp={previousPlayer} />
             </div>
-            <div className="game-board">
-                <Board colors={current.colors} tiles={this.state.tiles} lastClick={lastTileIndex} availableTiles={availableMoves} onClick={(i) => this.handleClick(i)} />
-            </div>
-            <Info nextPlayer={nextPlayer} lastTile={lastTile} onClick={this.newGame} buttons={buttons} victory={previousPlayerVictory} vp={previousPlayer} />
+            <div className="right-col"></div>
         </div>
     );
 }
