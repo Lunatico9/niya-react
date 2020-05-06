@@ -1,68 +1,25 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Niya-React
 
-## Available Scripts
+This website is accessible at [this link](https://lorenzoluna.herokuapp.com/).
 
-In the project directory, you can run:
+## Warning
 
-### `npm start`
+**This project is deployed on Heroku on a _free dyno_ and therefore will take some time to load as the server needs to be restarted.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Description
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+This website uses React to create an interactive user interface. Styling is handled using base CSS with no frameworks.
 
-### `npm test`
+### Game Rules
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The players take turns placing a token on the tiles. On the first turn the tiles are randomly shuffled and then the first player can only place a token on the tiles at the borders of the board. After the first turn a player can only place a token on a tile that shares a symbol or plant with the tile that the previously played token, which allows the players to influence and force each other's moves. The goal of the game is to achieve one of the three winning conditions.
 
-### `npm run build`
+### Winning Conditions
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+* A player wins if he places four of his tokens in a line on the board. This includes vertical, horizontal, and diagonal lines.
+* A player wins if he places four of his tokens in a square anywhere on the board.
+* A player wins if after his move the other player cannot place his token anywhere.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+## Disclaimer
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+This is a purely personal project with the purpose of practicing and showcasing web development skills. It is not intended for commercial use and will be made unavailable at request of the original board game creator if any concerns about copyright arise.
