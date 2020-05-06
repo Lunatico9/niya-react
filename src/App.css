@@ -15,43 +15,7 @@
   padding: 0;
   text-align: center;
   width: 100px;
-}
-
-.animated.red {
-    animation: green-red 0.5s;
-}
-
-.animated.black {
-    animation: green-black 0.5s;
-}
-
-@keyframes green-red {
-    from {
-        background: rgba(3, 252, 19, 0.3);
-    }
-    to {
-        background: rgba(252, 3, 3, 0.6);
-    }
-}
-
-@keyframes green-black {
-    from {
-        background: rgba(3, 252, 19, 0.3);
-    }
-
-    to {
-        background: rgba(102, 102, 102, 0.6);
-    }
-}
-
-@keyframes white-green {
-    from {
-        background: white;
-    }
-
-    to {
-        background: rgba(3, 252, 19, 0.3);
-    }
+  transition: 0.5s;
 }
 
 .board-row:after {
@@ -96,7 +60,6 @@ body {
 
 .available {
     background: rgba(3, 252, 19, 0.3);
-    animation: white-green 0.5s;
 }
 
 .game-info {
@@ -127,19 +90,30 @@ body {
   color: grey;
 }
 
-@media (max-width: 1000px) {
-  .left-col {
-    display: none;
-  }
-  .right-col {
-    display: none;
-  }
-}
-
 @media (max-width: 400px) {
   .tile {
     width: 25vw;
     height: 25vw;
     font-size: 1em;
+  }
+}
+.col-content{
+  margin: 10px;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: 10px;
+  margin-top: 50px;
+  border: grey 2px solid;
+  background-color: #bdbdbd;
+  height: 80vh;
+}
+
+@media (max-width: 1000px) {
+  .col {
+    display: none;
   }
 }

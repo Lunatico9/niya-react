@@ -5,7 +5,7 @@ import './App.css';
 function Tile(props) {
     if (props.color) {
         return (
-            <button className={(props.color === 'R' ? 'tile red' : 'tile black') + " " + (props.animate ? 'animated' : '')}>
+            <button className={(props.color === 'R' ? 'tile red' : 'tile black')}>
                 {props.color === "R" ? "Red" : "Black"}
             </button>
         )
@@ -23,7 +23,7 @@ function Tile(props) {
 class Board extends React.Component {
     renderTile(i) {
         return (
-            <Tile tile={this.props.tiles[i]} animate={this.props.lastClick === i ? true : false} available={this.props.availableTiles[i]} color={this.props.colors[i]} onClick={() => this.props.onClick(i)} />
+            <Tile tile={this.props.tiles[i]} available={this.props.availableTiles[i]} color={this.props.colors[i]} onClick={() => this.props.onClick(i)} />
         );
     }
     render() {
@@ -68,6 +68,16 @@ class Info extends React.Component {
                 </div>
             </div>
             
+        )
+    }
+}
+
+class SidePanel extends React.Component {
+    render() {
+        return (
+            <div className="col-content">
+                COMPONENT NEEDS STYLING, PLACEHOLDER: Quasar rich in heavy atoms at the edge of forever a very small stage in a vast cosmic arena Cambrian explosion invent the universe. Extraplanetary two ghostly white figures in coveralls and helmets are soflty dancing dispassionate extraterrestrial observer network of wormholes shores of the cosmic ocean the only home we've ever known? Hydrogen atoms courage of our questions extraplanetary extraordinary claims require extraordinary evidence brain is the seed of intelligence citizens of distant epochs and billions upon billions upon billions upon billions upon billions upon billions upon billions.
+            </div>
         )
     }
 }
@@ -227,7 +237,6 @@ render() {
     const nextPlayer = this.state.rIsNext ? "R" : "B";
     const previousPlayer = this.state.rIsNext ? "B" : "R";
     const lastTile = current.lastTile;
-    const lastTileIndex = this.state.tiles.indexOf(lastTile);
     const availableMoves = this.findAvailableMoves(this.state.tiles, lastTile)
     const previousPlayerVictory = this.checkVictory(previousPlayer, current.colors, availableMoves);
 
@@ -239,17 +248,21 @@ render() {
 
     return (
         <div className="content">
-            <div className="left-col"></div>
+            <div className="col left-col">
+                <SidePanel />
+            </div>
             <div className="game">
                 <div className="title">
                     <h1>Niya React</h1>
                 </div>
                 <div className="game-board">
-                    <Board colors={current.colors} tiles={this.state.tiles} lastClick={lastTileIndex} availableTiles={availableMoves} onClick={(i) => this.handleClick(i)} />
+                    <Board colors={current.colors} tiles={this.state.tiles} availableTiles={availableMoves} onClick={(i) => this.handleClick(i)} />
                 </div>
                 <Info nextPlayer={nextPlayer} lastTile={lastTile} onClick={this.newGame} buttons={buttons} victory={previousPlayerVictory} vp={previousPlayer} />
             </div>
-            <div className="right-col"></div>
+            <div className="col right-col">
+                <SidePanel />
+            </div>
         </div>
     );
 }
