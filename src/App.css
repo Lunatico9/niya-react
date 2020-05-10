@@ -98,6 +98,15 @@ body {
     font-size: 1em;
   }
 }
+
+@media (max-width: 250px) {
+  .tile br{
+    display: none;
+  }
+  .tile {
+    font-size: 0.5em
+  }
+}
 .col-content{
   margin: 10px;
 }
