@@ -241,9 +241,9 @@ render() {
     const previousPlayerVictory = this.checkVictory(previousPlayer, current.colors, availableMoves);
 
     const buttons = [
-        <button className={this.state.stepNumber > 0  ? "back" : "back disable"} key={0} onClick={() => this.back(this.state.stepNumber)}>Back</button>,
-        <button className="new-game" key={1} onClick={this.newGame}>New Game</button>,
-        <button className={this.state.stepNumber < this.state.history.length - 1  ? "forward" : "forward disable"} key={2} onClick={() => this.forward(this.state.stepNumber)}>Forward</button>
+        <button className={this.state.stepNumber > 0  ? "back" : "back disable"} key={0} onClick={() => this.back(this.state.stepNumber)}><i class="fas fa-step-backward"></i></button>,
+        <button className="new-game" key={1} onClick={this.newGame}><i class="fas fa-redo-alt"></i></button>,
+        <button className={this.state.stepNumber < this.state.history.length - 1  ? "forward" : "forward disable"} key={2} onClick={() => this.forward(this.state.stepNumber)}><i class="fas fa-step-forward"></i></button>
     ];
 
     return (

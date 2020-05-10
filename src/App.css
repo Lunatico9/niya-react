@@ -66,9 +66,10 @@ body {
 .game-info {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  height: 10%;
-  width: 60%;
+  justify-content: space-around;
+  align-items: center;
+  height: 15%;
+  width: 80%;
 }
 
 .next {
@@ -78,9 +79,17 @@ body {
 }
 
 .history-buttons {
-  width: 100%;
+  width: 80%;
+  height: 50%;
   display: flex;
   justify-content: space-between;
+  background-color: black;
+  opacity: 0.8;
+  padding: 10px;
+}
+
+.back, .forward, .new-game {
+  opacity: 0.5;
 }
 
 .title {
