@@ -114,9 +114,22 @@ body {
   transition: 0.2s;
 }
 
+.left-col {
+  border-left: none;
+  margin-left: 0px;
+}
+
+.right-col {
+  border-right: none;
+  margin-right: 0px;
+}
+
 @media (max-width: 1000px) {
   .col {
     visibility: hidden;
     opacity: 0;
+  }
+  html, body {
+    overflow: hidden;
   }
 }
