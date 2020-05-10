@@ -258,7 +258,7 @@ render() {
                 <div className="game-board">
                     <Board colors={current.colors} tiles={this.state.tiles} availableTiles={availableMoves} onClick={(i) => this.handleClick(i)} />
                 </div>
-                <Info nextPlayer={nextPlayer} lastTile={lastTile} onClick={this.newGame} buttons={buttons} victory={previousPlayerVictory} vp={previousPlayer} />
+                <Info nextPlayer={nextPlayer} lastTile={lastTile} buttons={buttons} victory={previousPlayerVictory} vp={previousPlayer} />
             </div>
             <div className="col right-col">
                 <SidePanel />
