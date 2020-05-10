@@ -43,6 +43,7 @@
 
 body {
   font: 14px "Century Gothic", Futura, sans-serif;
+  overflow: hidden;
 }
 
 .tile:focus {
@@ -109,6 +110,32 @@ body {
   box-shadow: none;
 }
 
+.tooltip {
+  position: relative;
+}
+
+.tooltip .tooltip-text {
+  visibility: hidden;
+  width: 120px;
+  background-color: green;
+  top: 125%;
+  left: 50%;
+  margin-left: -60px;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.3s 1s;
+}
+
+.tooltip.enable:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
 .button:active {
   transition: 0s;
   box-shadow: 0px 0px 3px 2px rgba(255,255,255,0.6);
@@ -172,8 +199,5 @@ body {
   .col {
     visibility: hidden;
     opacity: 0;
-  }
-  html, body {
-    overflow: hidden;
   }
 }

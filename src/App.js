@@ -241,9 +241,9 @@ render() {
     const previousPlayerVictory = this.checkVictory(previousPlayer, current.colors, availableMoves);
 
     const buttons = [
-        <button className={this.state.stepNumber > 0  ? "back button" : "back disable button"} key={0} onClick={() => this.back(this.state.stepNumber)}><i class="fas fa-step-backward fa-2x"></i></button>,
-        <button className="new-game button" key={1} onClick={this.newGame}><i class="fas fa-redo-alt fa-2x"></i></button>,
-        <button className={this.state.stepNumber < this.state.history.length - 1  ? "forward button" : "forward disable button"} key={2} onClick={() => this.forward(this.state.stepNumber)}><i class="fas fa-step-forward fa-2x"></i></button>
+        <button className={this.state.stepNumber > 0  ? "back enable button tooltip" : "back disable button tooltip"} key={0} onClick={() => this.back(this.state.stepNumber)}><span className="tooltip-text">Go back one move</span><i class="fas fa-step-backward fa-2x"></i></button>,
+        <button className="new-game button enable tooltip" key={1} onClick={this.newGame}><span className="tooltip-text">Shuffle the board and start a new game</span><i class="fas fa-redo-alt fa-2x"></i></button>,
+        <button className={this.state.stepNumber < this.state.history.length - 1  ? "forward enable button tooltip" : "forward disable button tooltip"} key={2} onClick={() => this.forward(this.state.stepNumber)}><span className="tooltip-text">Go forward one move</span><i class="fas fa-step-forward fa-2x"></i></button>
     ];
 
     return (
