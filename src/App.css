@@ -49,6 +49,11 @@ body {
   outline: none;
 }
 
+.tile.not-available:active {
+  transition: 0s;
+  box-shadow: inset 0px 0px 5px 2px rgba(255,0,0,0.5);
+}
+
 .red {
     background: rgba(252, 3, 3, 0.6);
     font-size: 30px;

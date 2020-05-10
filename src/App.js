@@ -11,7 +11,7 @@ function Tile(props) {
         )
     } else {
         return (
-            <button className={props.available ? "tile available" : "tile"} onClick={props.onClick}>
+            <button className={props.available ? "tile available" : "tile not-available"} onClick={props.onClick}>
                 {props.tile.plant}
                     <br />
                 {props.tile.symbol}
