@@ -171,6 +171,7 @@ body {
 }
 .col-content{
   margin: 10px;
+  font-size: 1vw;
 }
 
 .col {
@@ -196,6 +197,13 @@ body {
 }
 
 @media (max-width: 1000px) {
+  .col {
+    visibility: hidden;
+    opacity: 0;
+  }
+}
+
+@media (max-height: 650px) {
   .col {
     visibility: hidden;
     opacity: 0;

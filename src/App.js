@@ -79,7 +79,7 @@ class SidePanel extends React.Component {
             return (
                 <div className="col-content">
                     <h2>Game Rules</h2> 
-                    The players take turns placing a token on the tiles. On the first turn the tiles are randomly shuffled and then the first player can only place a token on the tiles at the borders of the board. After the first turn a player can only place a token on a tile that shares a symbol or plant with the tile that the previously played token, which allows the players to influence and force each other's moves. The goal of the game is to achieve one of the three winning conditions.
+                    <p>The players take turns placing a token on the tiles. On the first turn the tiles are randomly shuffled and then the first player can only place a token on the tiles at the borders of the board. After the first turn a player can only place a token on a tile that shares a symbol or plant with the tile that the previously played token, which allows the players to influence and force each other's moves. The goal of the game is to achieve one of the three winning conditions.</p>
                     <h3>Winning Conditions</h3>
                     <ul>
                         <li>A player wins if he places four of his tokens in a line on the board. This includes vertical, horizontal, and diagonal lines.</li>
