@@ -76,7 +76,14 @@ class SidePanel extends React.Component {
     render() {
         return (
             <div className="col-content">
-                COMPONENT NEEDS STYLING, PLACEHOLDER: Quasar rich in heavy atoms at the edge of forever a very small stage in a vast cosmic arena Cambrian explosion invent the universe. Extraplanetary two ghostly white figures in coveralls and helmets are soflty dancing dispassionate extraterrestrial observer network of wormholes shores of the cosmic ocean the only home we've ever known? Hydrogen atoms courage of our questions extraplanetary extraordinary claims require extraordinary evidence brain is the seed of intelligence citizens of distant epochs and billions upon billions upon billions upon billions upon billions upon billions upon billions.
+                <h2>Game Rules</h2> 
+                The players take turns placing a token on the tiles. On the first turn the tiles are randomly shuffled and then the first player can only place a token on the tiles at the borders of the board. After the first turn a player can only place a token on a tile that shares a symbol or plant with the tile that the previously played token, which allows the players to influence and force each other's moves. The goal of the game is to achieve one of the three winning conditions.
+                <h3>Winning Conditions</h3>
+                <ul>
+                    <li>A player wins if he places four of his tokens in a line on the board. This includes vertical, horizontal, and diagonal lines.</li>
+                    <li>A player wins if he places four of his tokens in a square anywhere on the board.</li>
+                    <li>A player wins if after his move the other player cannot place his token anywhere.</li>
+                </ul>
             </div>
         )
     }
